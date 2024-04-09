@@ -1,4 +1,7 @@
-<?php
+<?
+
+// csatlakozás az adatbázishoz
+
 $servername = "localhost";
 $username = "root";
 $password = "";
