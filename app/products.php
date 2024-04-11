@@ -1,5 +1,41 @@
 <?php
+// Include the database connection script
+include "scripts/connectDB.php";
 
+// Include the script to fetch product data
+include "scripts/getProducts.php";
 ?>
 
-<p> Termékoldal </p>
+<div class="container mt-5">
+    <h1 class="mb-4">Könyveink</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Cím</th>
+                    <th>Szerző</th>
+                    <th>Kiadó</th>
+                    <th>Oldalszám</th>
+                    <th>Leírás</th>
+                    <th>Nyelv</th>
+                    <th>Műfaj</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                    echo "<tr>";
+                    echo "<td>".$row['CIM']."</td>";
+                    echo "<td>".$row['SZERZO']."</td>";
+                    echo "<td>".$row['KIADO_NEV']."</td>";
+                    echo "<td>".$row['OLDALSZAM']."</td>";
+                    echo "<td>".$row['LEIRAS']."</td>";
+                    echo "<td>".$row['NYELV']."</td>";
+                    echo "<td>".$row['ALMUFAJ_NEV']."</td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
