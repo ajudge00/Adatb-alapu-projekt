@@ -51,6 +51,9 @@
         // bejelentkezés/regisztráció
         $topRightButtons = '
             <li class="nav-item">
+                <a class="nav-link" href="?page=admin">Admin funkciók</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link ' . $colorLogreg . '" href="?page=logreg">Bejelentkezés</a>
             </li>
         ';

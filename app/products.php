@@ -1,8 +1,6 @@
 <?php
-// Include the database connection script
 include "scripts/connectDB.php";
 
-// Include the script to fetch product data
 include "scripts/getProducts.php";
 ?>
 

@@ -68,21 +68,22 @@ CREATE TABLE KONYV
     "LEIRAS" VARCHAR2(256 BYTE),
     "NYELV" VARCHAR2(20 BYTE),
     "MUFAJ_ID" NUMBER,
+    "AR" NUMBER,
 
     PRIMARY KEY ("ID") ENABLE,
 
     CONSTRAINT KONYV_SZERZOFK
         FOREIGN KEY (SZERZO_ID)
         REFERENCES SZERZO(ID)
-        ON DELETE CASCADE,
+        ON DELETE SET NULL,
     CONSTRAINT KONYV_KIADOFK
         FOREIGN KEY (KIADO_ID)
         REFERENCES KIADO(ID)
-        ON DELETE CASCADE,
+        ON DELETE SET NULL,
     CONSTRAINT KONYV_MUFAJFK
         FOREIGN KEY (MUFAJ_ID)
         REFERENCES MUFAJ(ID)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
 
@@ -229,106 +230,108 @@ INSERT INTO szerzo(id, nev) values (50, 'Szerző 50');
 
 commit;
 
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (1, 'Könyv 1', '45', 10, 422, 'A thrilling adventure through time and space.', 'magyar', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (2, 'Könyv 2', '9', 10, 156, 'A thrilling adventure through time and space.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (3, 'Könyv 3', '41', 10, 158, 'An insightful exploration of human nature and society.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (4, 'Könyv 4', '35', 4, 105, 'A thrilling adventure through time and space.', 'magyar', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (5, 'Könyv 5', '3', 3, 376, 'A heartwarming tale of love and friendship.', 'magyar', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (6, 'Könyv 6', '12', 5, 103, 'An insightful exploration of human nature and society.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (7, 'Könyv 7', '5', 1, 358, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (8, 'Könyv 8', '41', 2, 413, 'A heartwarming tale of love and friendship.', 'magyar', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (9, 'Könyv 9', '40', 1, 241, 'A captivating story that will keep you hooked till the end.', 'magyar', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (10, 'Könyv 10', '25', 5, 441, 'A heartwarming tale of love and friendship.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (11, 'Könyv 11', '37', 6, 466, 'An insightful exploration of human nature and society.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (12, 'Könyv 12', '37', 1, 192, 'A thrilling adventure through time and space.', 'magyar', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (13, 'Könyv 13', '27', 9, 399, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (14, 'Könyv 14', '36', 2, 285, 'An insightful exploration of human nature and society.', 'magyar', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (15, 'Könyv 15', '9', 8, 146, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (16, 'Könyv 16', '42', 7, 421, 'A thrilling adventure through time and space.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (17, 'Könyv 17', '4', 8, 336, 'A captivating story that will keep you hooked till the end.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (18, 'Könyv 18', '24', 4, 148, 'An insightful exploration of human nature and society.', 'magyar', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (19, 'Könyv 19', '31', 7, 335, 'A captivating story that will keep you hooked till the end.', 'magyar', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (20, 'Könyv 20', '1', 3, 112, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (21, 'Könyv 21', '37', 4, 305, 'A captivating story that will keep you hooked till the end.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (22, 'Könyv 22', '11', 9, 181, 'A captivating story that will keep you hooked till the end.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (23, 'Könyv 23', '2', 10, 241, 'A thrilling adventure through time and space.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (24, 'Könyv 24', '7', 9, 198, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (25, 'Könyv 25', '37', 10, 112, 'An insightful exploration of human nature and society.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (26, 'Könyv 26', '14', 6, 235, 'A thrilling adventure through time and space.', 'magyar', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (27, 'Könyv 27', '43', 4, 291, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (28, 'Könyv 28', '26', 5, 396, 'A captivating story that will keep you hooked till the end.', 'magyar', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (29, 'Könyv 29', '21', 8, 426, 'A thrilling adventure through time and space.', 'magyar', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (30, 'Könyv 30', '5', 9, 393, 'An insightful exploration of human nature and society.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (31, 'Könyv 31', '32', 5, 322, 'An inspiring journey of self-discovery and resilience.', 'magyar', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (32, 'Könyv 32', '29', 9, 423, 'A heartwarming tale of love and friendship.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (33, 'Könyv 33', '16', 6, 121, 'A thrilling adventure through time and space.', 'magyar', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (34, 'Könyv 34', '20', 8, 495, 'An insightful exploration of human nature and society.', 'magyar', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (35, 'Könyv 35', '37', 1, 442, 'A heartwarming tale of love and friendship.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (36, 'Könyv 36', '27', 6, 438, 'An insightful exploration of human nature and society.', 'spanyol', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (37, 'Könyv 37', '38', 5, 438, 'An inspiring journey of self-discovery and resilience.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (38, 'Könyv 38', '35', 8, 454, 'A captivating story that will keep you hooked till the end.', 'spanyol', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (39, 'Könyv 39', '20', 1, 248, 'A thrilling adventure through time and space.', 'angol', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (40, 'Könyv 40', '31', 2, 254, 'An insightful exploration of human nature and society.', 'német', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (41, 'Könyv 41', '29', 2, 395, 'A heartwarming tale of love and friendship.', 'angol', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (42, 'Könyv 42', '26', 9, 245, 'A heartwarming tale of love and friendship.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (43, 'Könyv 43', '50', 9, 431, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (44, 'Könyv 44', '32', 3, 174, 'A thrilling adventure through time and space.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (45, 'Könyv 45', '7', 5, 215, 'An insightful exploration of human nature and society.', 'spanyol', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (46, 'Könyv 46', '21', 1, 226, 'An inspiring journey of self-discovery and resilience.', 'német', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (47, 'Könyv 47', '41', 7, 499, 'A thrilling adventure through time and space.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (48, 'Könyv 48', '45', 3, 474, 'An inspiring journey of self-discovery and resilience.', 'német', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (49, 'Könyv 49', '42', 7, 165, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (50, 'Könyv 50', '33', 10, 451, 'An inspiring journey of self-discovery and resilience.', 'magyar', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (51, 'Könyv 51', '46', 6, 279, 'A thrilling adventure through time and space.', 'spanyol', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (52, 'Könyv 52', '19', 9, 356, 'An insightful exploration of human nature and society.', 'magyar', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (53, 'Könyv 53', '32', 2, 109, 'A heartwarming tale of love and friendship.', 'magyar', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (54, 'Könyv 54', '16', 9, 210, 'An inspiring journey of self-discovery and resilience.', 'angol', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (55, 'Könyv 55', '38', 7, 420, 'A captivating story that will keep you hooked till the end.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (56, 'Könyv 56', '25', 5, 290, 'A captivating story that will keep you hooked till the end.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (57, 'Könyv 57', '35', 1, 223, 'An inspiring journey of self-discovery and resilience.', 'német', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (58, 'Könyv 58', '6', 2, 379, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (59, 'Könyv 59', '50', 10, 116, 'A heartwarming tale of love and friendship.', 'angol', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (60, 'Könyv 60', '15', 9, 110, 'A captivating story that will keep you hooked till the end.', 'német', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (61, 'Könyv 61', '28', 2, 102, 'A captivating story that will keep you hooked till the end.', 'német', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (62, 'Könyv 62', '47', 4, 349, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (63, 'Könyv 63', '33', 9, 333, 'A heartwarming tale of love and friendship.', 'angol', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (64, 'Könyv 64', '39', 4, 467, 'A captivating story that will keep you hooked till the end.', 'spanyol', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (65, 'Könyv 65', '48', 6, 273, 'A captivating story that will keep you hooked till the end.', 'angol', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (66, 'Könyv 66', '13', 2, 500, 'An insightful exploration of human nature and society.', 'spanyol', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (67, 'Könyv 67', '36', 1, 178, 'A heartwarming tale of love and friendship.', 'spanyol', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (68, 'Könyv 68', '2', 2, 108, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (69, 'Könyv 69', '48', 8, 463, 'A thrilling adventure through time and space.', 'spanyol', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (70, 'Könyv 70', '48', 3, 487, 'An insightful exploration of human nature and society.', 'angol', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (71, 'Könyv 71', '26', 9, 325, 'A captivating story that will keep you hooked till the end.', 'magyar', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (72, 'Könyv 72', '11', 2, 470, 'An insightful exploration of human nature and society.', 'angol', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (73, 'Könyv 73', '13', 6, 475, 'A heartwarming tale of love and friendship.', 'német', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (74, 'Könyv 74', '10', 7, 264, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (75, 'Könyv 75', '46', 9, 192, 'A captivating story that will keep you hooked till the end.', 'angol', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (76, 'Könyv 76', '38', 3, 268, 'An insightful exploration of human nature and society.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (77, 'Könyv 77', '10', 3, 269, 'A captivating story that will keep you hooked till the end.', 'német', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (78, 'Könyv 78', '10', 6, 235, 'A heartwarming tale of love and friendship.', 'spanyol', '4');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (79, 'Könyv 79', '6', 10, 178, 'An insightful exploration of human nature and society.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (80, 'Könyv 80', '31', 2, 161, 'A heartwarming tale of love and friendship.', 'spanyol', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (81, 'Könyv 81', '49', 3, 111, 'A captivating story that will keep you hooked till the end.', 'német', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (82, 'Könyv 82', '34', 8, 371, 'A heartwarming tale of love and friendship.', 'spanyol', '7');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (83, 'Könyv 83', '42', 1, 431, 'A captivating story that will keep you hooked till the end.', 'angol', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (84, 'Könyv 84', '33', 8, 338, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (85, 'Könyv 85', '27', 3, 477, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (86, 'Könyv 86', '14', 1, 259, 'An inspiring journey of self-discovery and resilience.', 'német', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (87, 'Könyv 87', '32', 2, 448, 'An insightful exploration of human nature and society.', 'spanyol', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (88, 'Könyv 88', '31', 7, 432, 'An insightful exploration of human nature and society.', 'spanyol', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (89, 'Könyv 89', '31', 5, 253, 'A heartwarming tale of love and friendship.', 'német', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (90, 'Könyv 90', '6', 1, 383, 'A thrilling adventure through time and space.', 'angol', '3');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (91, 'Könyv 91', '5', 2, 103, 'A heartwarming tale of love and friendship.', 'angol', '5');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (92, 'Könyv 92', '17', 9, 345, 'An insightful exploration of human nature and society.', 'német', '2');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (93, 'Könyv 93', '47', 2, 259, 'A thrilling adventure through time and space.', 'spanyol', '8');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (94, 'Könyv 94', '15', 7, 366, 'A heartwarming tale of love and friendship.', 'angol', '1');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (95, 'Könyv 95', '35', 10, 305, 'A heartwarming tale of love and friendship.', 'spanyol', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (96, 'Könyv 96', '34', 3, 289, 'A thrilling adventure through time and space.', 'angol', '6');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (97, 'Könyv 97', '21', 9, 157, 'A heartwarming tale of love and friendship.', 'magyar', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (98, 'Könyv 98', '36', 8, 400, 'A heartwarming tale of love and friendship.', 'német', '9');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (99, 'Könyv 99', '25', 8, 353, 'An insightful exploration of human nature and society.', 'angol', '10');
-INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id) VALUES (100, 'Könyv 100', '34', 10, 150, 'A captivating story that will keep you hooked till the end.', 'spanyol', '8');
+
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (1, 'Könyv 1', '45', 10, 422, 'A thrilling adventure through time and space.', 'magyar', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (2, 'Könyv 2', '9', 10, 156, 'A thrilling adventure through time and space.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (3, 'Könyv 3', '41', 10, 158, 'An insightful exploration of human nature and society.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (4, 'Könyv 4', '35', 4, 105, 'A thrilling adventure through time and space.', 'magyar', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (5, 'Könyv 5', '3', 3, 376, 'A heartwarming tale of love and friendship.', 'magyar', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (6, 'Könyv 6', '12', 5, 103, 'An insightful exploration of human nature and society.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (7, 'Könyv 7', '5', 1, 358, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (8, 'Könyv 8', '41', 2, 413, 'A heartwarming tale of love and friendship.', 'magyar', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (9, 'Könyv 9', '40', 1, 241, 'A captivating story that will keep you hooked till the end.', 'magyar', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (10, 'Könyv 10', '25', 5, 441, 'A heartwarming tale of love and friendship.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (11, 'Könyv 11', '37', 6, 466, 'An insightful exploration of human nature and society.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (12, 'Könyv 12', '37', 1, 192, 'A thrilling adventure through time and space.', 'magyar', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (13, 'Könyv 13', '27', 9, 399, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (14, 'Könyv 14', '36', 2, 285, 'An insightful exploration of human nature and society.', 'magyar', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (15, 'Könyv 15', '9', 8, 146, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (16, 'Könyv 16', '42', 7, 421, 'A thrilling adventure through time and space.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (17, 'Könyv 17', '4', 8, 336, 'A captivating story that will keep you hooked till the end.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (18, 'Könyv 18', '24', 4, 148, 'An insightful exploration of human nature and society.', 'magyar', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (19, 'Könyv 19', '31', 7, 335, 'A captivating story that will keep you hooked till the end.', 'magyar', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (20, 'Könyv 20', '1', 3, 112, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (21, 'Könyv 21', '37', 4, 305, 'A captivating story that will keep you hooked till the end.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (22, 'Könyv 22', '11', 9, 181, 'A captivating story that will keep you hooked till the end.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (23, 'Könyv 23', '2', 10, 241, 'A thrilling adventure through time and space.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (24, 'Könyv 24', '7', 9, 198, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (25, 'Könyv 25', '37', 10, 112, 'An insightful exploration of human nature and society.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (26, 'Könyv 26', '14', 6, 235, 'A thrilling adventure through time and space.', 'magyar', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (27, 'Könyv 27', '43', 4, 291, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (28, 'Könyv 28', '26', 5, 396, 'A captivating story that will keep you hooked till the end.', 'magyar', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (29, 'Könyv 29', '21', 8, 426, 'A thrilling adventure through time and space.', 'magyar', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (30, 'Könyv 30', '5', 9, 393, 'An insightful exploration of human nature and society.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (31, 'Könyv 31', '32', 5, 322, 'An inspiring journey of self-discovery and resilience.', 'magyar', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (32, 'Könyv 32', '29', 9, 423, 'A heartwarming tale of love and friendship.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (33, 'Könyv 33', '16', 6, 121, 'A thrilling adventure through time and space.', 'magyar', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (34, 'Könyv 34', '20', 8, 495, 'An insightful exploration of human nature and society.', 'magyar', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (35, 'Könyv 35', '37', 1, 442, 'A heartwarming tale of love and friendship.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (36, 'Könyv 36', '27', 6, 438, 'An insightful exploration of human nature and society.', 'spanyol', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (37, 'Könyv 37', '38', 5, 438, 'An inspiring journey of self-discovery and resilience.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (38, 'Könyv 38', '35', 8, 454, 'A captivating story that will keep you hooked till the end.', 'spanyol', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (39, 'Könyv 39', '20', 1, 248, 'A thrilling adventure through time and space.', 'angol', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (40, 'Könyv 40', '31', 2, 254, 'An insightful exploration of human nature and society.', 'német', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (41, 'Könyv 41', '29', 2, 395, 'A heartwarming tale of love and friendship.', 'angol', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (42, 'Könyv 42', '26', 9, 245, 'A heartwarming tale of love and friendship.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (43, 'Könyv 43', '50', 9, 431, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (44, 'Könyv 44', '32', 3, 174, 'A thrilling adventure through time and space.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (45, 'Könyv 45', '7', 5, 215, 'An insightful exploration of human nature and society.', 'spanyol', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (46, 'Könyv 46', '21', 1, 226, 'An inspiring journey of self-discovery and resilience.', 'német', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (47, 'Könyv 47', '41', 7, 499, 'A thrilling adventure through time and space.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (48, 'Könyv 48', '45', 3, 474, 'An inspiring journey of self-discovery and resilience.', 'német', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (49, 'Könyv 49', '42', 7, 165, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (50, 'Könyv 50', '33', 10, 451, 'An inspiring journey of self-discovery and resilience.', 'magyar', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (51, 'Könyv 51', '46', 6, 279, 'A thrilling adventure through time and space.', 'spanyol', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (52, 'Könyv 52', '19', 9, 356, 'An insightful exploration of human nature and society.', 'magyar', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (53, 'Könyv 53', '32', 2, 109, 'A heartwarming tale of love and friendship.', 'magyar', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (54, 'Könyv 54', '16', 9, 210, 'An inspiring journey of self-discovery and resilience.', 'angol', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (55, 'Könyv 55', '38', 7, 420, 'A captivating story that will keep you hooked till the end.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (56, 'Könyv 56', '25', 5, 290, 'A captivating story that will keep you hooked till the end.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (57, 'Könyv 57', '35', 1, 223, 'An inspiring journey of self-discovery and resilience.', 'német', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (58, 'Könyv 58', '6', 2, 379, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (59, 'Könyv 59', '50', 10, 116, 'A heartwarming tale of love and friendship.', 'angol', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (60, 'Könyv 60', '15', 9, 110, 'A captivating story that will keep you hooked till the end.', 'német', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (61, 'Könyv 61', '28', 2, 102, 'A captivating story that will keep you hooked till the end.', 'német', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (62, 'Könyv 62', '47', 4, 349, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (63, 'Könyv 63', '33', 9, 333, 'A heartwarming tale of love and friendship.', 'angol', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (64, 'Könyv 64', '39', 4, 467, 'A captivating story that will keep you hooked till the end.', 'spanyol', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (65, 'Könyv 65', '48', 6, 273, 'A captivating story that will keep you hooked till the end.', 'angol', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (66, 'Könyv 66', '13', 2, 500, 'An insightful exploration of human nature and society.', 'spanyol', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (67, 'Könyv 67', '36', 1, 178, 'A heartwarming tale of love and friendship.', 'spanyol', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (68, 'Könyv 68', '2', 2, 108, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (69, 'Könyv 69', '48', 8, 463, 'A thrilling adventure through time and space.', 'spanyol', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (70, 'Könyv 70', '48', 3, 487, 'An insightful exploration of human nature and society.', 'angol', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (71, 'Könyv 71', '26', 9, 325, 'A captivating story that will keep you hooked till the end.', 'magyar', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (72, 'Könyv 72', '11', 2, 470, 'An insightful exploration of human nature and society.', 'angol', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (73, 'Könyv 73', '13', 6, 475, 'A heartwarming tale of love and friendship.', 'német', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (74, 'Könyv 74', '10', 7, 264, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (75, 'Könyv 75', '46', 9, 192, 'A captivating story that will keep you hooked till the end.', 'angol', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (76, 'Könyv 76', '38', 3, 268, 'An insightful exploration of human nature and society.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (77, 'Könyv 77', '10', 3, 269, 'A captivating story that will keep you hooked till the end.', 'német', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (78, 'Könyv 78', '10', 6, 235, 'A heartwarming tale of love and friendship.', 'spanyol', '4', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (79, 'Könyv 79', '6', 10, 178, 'An insightful exploration of human nature and society.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (80, 'Könyv 80', '31', 2, 161, 'A heartwarming tale of love and friendship.', 'spanyol', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (81, 'Könyv 81', '49', 3, 111, 'A captivating story that will keep you hooked till the end.', 'német', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (82, 'Könyv 82', '34', 8, 371, 'A heartwarming tale of love and friendship.', 'spanyol', '7', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (83, 'Könyv 83', '42', 1, 431, 'A captivating story that will keep you hooked till the end.', 'angol', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (84, 'Könyv 84', '33', 8, 338, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (85, 'Könyv 85', '27', 3, 477, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (86, 'Könyv 86', '14', 1, 259, 'An inspiring journey of self-discovery and resilience.', 'német', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (87, 'Könyv 87', '32', 2, 448, 'An insightful exploration of human nature and society.', 'spanyol', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (88, 'Könyv 88', '31', 7, 432, 'An insightful exploration of human nature and society.', 'spanyol', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (89, 'Könyv 89', '31', 5, 253, 'A heartwarming tale of love and friendship.', 'német', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (90, 'Könyv 90', '6', 1, 383, 'A thrilling adventure through time and space.', 'angol', '3', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (91, 'Könyv 91', '5', 2, 103, 'A heartwarming tale of love and friendship.', 'angol', '5', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (92, 'Könyv 92', '17', 9, 345, 'An insightful exploration of human nature and society.', 'német', '2', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (93, 'Könyv 93', '47', 2, 259, 'A thrilling adventure through time and space.', 'spanyol', '8', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (94, 'Könyv 94', '15', 7, 366, 'A heartwarming tale of love and friendship.', 'angol', '1', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (95, 'Könyv 95', '35', 10, 305, 'A heartwarming tale of love and friendship.', 'spanyol', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (96, 'Könyv 96', '34', 3, 289, 'A thrilling adventure through time and space.', 'angol', '6', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (97, 'Könyv 97', '21', 9, 157, 'A heartwarming tale of love and friendship.', 'magyar', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (98, 'Könyv 98', '36', 8, 400, 'A heartwarming tale of love and friendship.', 'német', '9', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (99, 'Könyv 99', '25', 8, 353, 'An insightful exploration of human nature and society.', 'angol', '10', 0);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (100, 'Könyv 100', '34', 10, 150, 'A captivating story that will keep you hooked till the end.', 'spanyol', '8', 0);
+
 
 commit;
 

@@ -28,6 +28,9 @@ switch ($page) {
     case 'stores':
         include('stores.php');
         break;
+    case 'admin':
+        include('admin.php');
+        break;
     case 'searchProduct':
         include('searchProduct.php');
         break;
