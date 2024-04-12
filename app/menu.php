@@ -2,6 +2,7 @@
     $colorProducts = "";
     $colorStores = "";
     $colorLogreg = "";
+    $colorAdmin = "";
 
     if(isset($_GET['page'])){
         switch ($_GET['page']){
@@ -13,6 +14,8 @@
                 break;
             case 'logreg':
                 $colorLogreg = "text-white";
+            case 'admin':
+                $colorAdmin = "text-white";
         }
     }else{
         $colorProducts = "text-white";
@@ -51,7 +54,7 @@
         // bejelentkezés/regisztráció
         $topRightButtons = '
             <li class="nav-item">
-                <a class="nav-link" href="?page=admin">Admin funkciók</a>
+                <a class="nav-link ' . $colorAdmin . '" href="?page=admin">Admin funkciók</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link ' . $colorLogreg . '" href="?page=logreg">Bejelentkezés</a>
