@@ -37,6 +37,9 @@ switch ($page) {
     case 'logreg':
         include('logreg.php');
         break;
+    case 'item':
+        include('item.php');
+        break;
     default:
         include('products.php');
         break;
