@@ -4,10 +4,10 @@
 $page = isset($_GET['page']) ? $_GET['page'] : 'products';
 
 
-$protectedNormal = [/* normál regisztrált felhasználóktól védett oldalak ide! */];
+$protectedNormal = ["admin"];
 
 $protectedUnregistered = [];
-$protectedUnregistered = array_merge($protectedNormal, [/* vengég felhasználóktól védett oldalak ide! */]);
+$protectedUnregistered = array_merge($protectedNormal, ["myPurchases"]);
 
 
 // csekk hogy be van e jelentkezve --> vedett oldalak
@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id']) && in_array($page, $protectedUnregistered)) {
 }
 
 // csekk hogy admin e --> adminvédett oldalak
-if(isset($_SESSION['role']) && $_SESSION['role'] !== 'admin' && in_array($page, $protectedNormal)){
+if(isset($_SESSION['role']) && $_SESSION['admin'] !== true && in_array($page, $protectedNormal)){
     header("Location: index.php");
     exit();
 }
@@ -39,6 +39,15 @@ switch ($page) {
         break;
     case 'item':
         include('item.php');
+        break;
+    case 'myPurchases':
+        include('myPurchases.php');
+        break;
+    case 'connection':
+        include('connection.php');
+        break;
+    case 'cart':
+        include('cart.php');
         break;
     default:
         include('products.php');

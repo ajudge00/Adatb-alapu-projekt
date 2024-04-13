@@ -1,39 +1,23 @@
 <?php
-    $colorProducts = "";
-    $colorStores = "";
-    $colorLogreg = "";
-    $colorAdmin = "";
-    $colorUserButton = "";
-
-    if(isset($_GET['page'])){
-        switch ($_GET['page']){
-            case 'products':
-                $colorProducts = "text-white";
-                break;
-            case 'stores':
-                $colorStores = "text-white";
-                break;
-            case 'logreg':
-                $colorLogreg = "text-white";
-                break;
-            case 'admin':
-                $colorUserButton = "text-white";
-                break;
-            case 'myPurchases':
-                $colorUserButton = "text-white";
+    function colorMenuItem($button){
+        if (isset($_GET['page'])){
+            return $button === $_GET['page'] ? "text-white" : "";
+        }else{
+            return $button === "products" ? "text-white" : "";
         }
-    }else{
-        $colorProducts = "text-white";
     }
 
 
     //menü
     $menuItems = '
         <li class="nav-item">
-            <a class="nav-link ' . $colorProducts . '" href="?page=products">Könyveink</a>
+            <a class="nav-link ' . colorMenuItem("products") . '" href="?page=products">Könyveink</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link ' . $colorStores . '" href="?page=stores">Áruházaink</a>
+            <a class="nav-link ' . colorMenuItem("stores") . '" href="?page=stores">Áruházaink</a>
+        </li>
+        <li>
+            <a class="nav-link ' . colorMenuItem("connection") . '" href="?page=connection">Csatlakozás státusz</a>
         </li>
     ';
 
@@ -49,13 +33,13 @@
         if($_SESSION['admin'] == 1) {
             $userButtons = '
                 <li class="nav-item">
-                    <a class="nav-link ' . $colorUserButton . '" href="?page=admin">Admin funkciók</a>
+                    <a class="nav-link ' . colorMenuItem("admin") . '" href="?page=admin">Admin funkciók</a>
                 </li>
             ';
         } else {
             $userButtons = '
                 <li class="nav-item">
-                    <a class="nav-link ' . $colorUserButton . '" href="?page=myPurchases">Vásárlásaim</a>
+                    <a class="nav-link ' . colorMenuItem("myPurchases") . '" href="?page=myPurchases">Vásárlásaim</a>
                 </li>
             ';
         }
@@ -65,14 +49,19 @@
         // nem bejelentkezett user jobb menüje
         $topRightButtons = '
             <li class="nav-item">
-                <a class="nav-link ' . $colorLogreg . '" href="?page=logreg">Bejelentkezés</a>
+                <a class="nav-link ' . colorMenuItem("logreg") . '" href="?page=logreg">Bejelentkezés</a>
             </li>
         ';
     }
 
 
-    // keresés gomb
-    $topRightButtons .= '
+    // kosár, keresés gomb
+    $kosar = '
+        <li class="nav-item">
+            <a class="nav-link ' . colorMenuItem("cart") . '" href="?page=cart">Kosaram</a>
+        </li>
+    ';
+    $topRightButtons = $kosar . $topRightButtons . '
         <li class="nav-item">
             <a class="nav-link img-fluid" href="?page=searchProduct"><img class="search-icon img-fluid" src="assets/icons/magnifying-glass-solid.png" alt="Keresés"></a>
         </li>
