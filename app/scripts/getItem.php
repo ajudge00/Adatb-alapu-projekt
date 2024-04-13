@@ -1,5 +1,5 @@
 <?php
-include "scripts/connectDB.php";
+include_once "scripts/connectDB.php";
 
 $item_id = $_GET['id'];
 

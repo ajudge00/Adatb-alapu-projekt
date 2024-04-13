@@ -48,8 +48,8 @@ if ($user_id !== null) {
         $_SESSION['user_id'] = $user_id;
         $_SESSION['nev'] = $nev;
         $_SESSION['email'] = $email_in_db;
-        $_SESSION['torzsvasarlo'] = (int)$torzsvasarlo;
-        $_SESSION['admin'] = (int)$admin;
+        $_SESSION['torzsvasarlo'] = (int)$torzsvasarlo == 1 ? true : false;
+        $_SESSION['admin'] = (int)$admin == 1 ? true : false;
 
         oci_free_statement($stmt);
         oci_close($conn);
