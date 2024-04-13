@@ -1,5 +1,5 @@
 
-<form action="admin_funcs/addBook.php" method="post">
+<form action="admin_funcs/add/addBook.php" method="post">
     <label for="title_input"> Cím </label> <br>
     <input type="text" name="title" id="title_input"> <br>
 
@@ -7,7 +7,7 @@
     <select name='author' id="author_select">
         <?php
         include 'admin_funcs/getAuthors.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+        while (($row = oci_fetch_array($author_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
             <option value=<?php echo $row['ID'] ?>> <?php echo $row['NEV'] ?> </option>
         <?php
@@ -19,9 +19,9 @@
     <select name='publisher' id="publisher_select">
         <?php
         include 'admin_funcs/getPublishers.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+        while (($row = oci_fetch_array($publisher_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
-            <option value=<?php echo $row['ID'] ?>> <?php echo $row['NEV'] ?> </option>
+            <option value="<?php echo $row['ID'] ?>"> <?php echo $row['NEV'] ?> </option>
         <?php
         }
         ?>
@@ -40,9 +40,9 @@
     <select name='genre' id="genre_select">
         <?php
         include 'admin_funcs/getGenres.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+        while (($row = oci_fetch_array($genre_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
-            <option value=<?php echo $row['ID'] ?>> <?php echo $row['NEV'] . ', ' . $row['ALMUFAJ_NEV'] ?> </option>
+            <option value="<?php echo $row['ID'] ?>"> <?php echo $row['NEV'] . ', ' . $row['ALMUFAJ_NEV'] ?> </option>
         <?php
         }
         ?>

@@ -1,5 +1,5 @@
 <?php
-include "../scripts/connectDB.php";
+include "../../scripts/connectDB.php";
 
 $title = $_POST["title"];
 $author = $_POST["author"];
@@ -60,4 +60,4 @@ echo "Record added successfully.";
 oci_free_statement($stid);
 oci_close($conn);
 
-header("Location: ../index.php?page=admin");
+header("Location: ../../index.php?page=admin");

@@ -2,13 +2,6 @@
 include "scripts/connectDB.php";
 ?>
 
-<!-- <p>Admin funkciók ide</p>
-
-<form action="scripts/addPublisher.php" method="post">
-    <input type="text" name="" id="">
-    <button type="submit" class="btn btn-success">Hozzáadás</button>
-</form> -->
-
 <div>
     <ul id="functionList">
         Adatok kezelése
@@ -36,22 +29,22 @@ include "scripts/connectDB.php";
         <ul id = "modifyList">
             Adatok módosítása
             <li>
-                <a href="?page=admin&func=modifyBook"> Könyv</a>
+                <a href="?page=admin&func=modBook"> Könyv</a>
             </li>
             <li>
-                <a href="?page=admin&func=modifyStore"> Áruház</a>
+                <a href="?page=admin&func=modStore"> Áruház</a>
             </li>
             <li>
-                <a href="?page=admin&func=modifyStock"> Készlet</a>
+                <a href="?page=admin&func=modStock"> Készlet</a>
             </li>
             <li>
-                <a href="?page=admin&func=modifyPublisher"> Kiadó</a>
+                <a href="?page=admin&func=modPublisher"> Kiadó</a>
             </li>
             <li>
-                <a href="?page=admin&func=modifyGenre"> Műfaj</a>
+                <a href="?page=admin&func=modGenre"> Műfaj</a>
             </li>
             <li>
-                <a href="?page=admin&func=modifyAuthor"> Szerző</a>
+                <a href="?page=admin&func=modAuthor"> Szerző</a>
             </li>
         </ul>
     </ul>
@@ -63,7 +56,26 @@ include "scripts/connectDB.php";
 
     switch ($func) {
         case 'addBook' :
-            include_once('admin_funcs/addBookForm.php');
+            include_once('admin_funcs/add/addBookForm.php');
+            break;
+        case 'addStore':
+            include_once('admin_funcs/add/addStoreForm.php');
+            break;
+        case 'addStock':
+            include_once('admin_funcs/add/addStockForm.php');
+            break;
+        case 'addPublisher':
+            include_once('admin_funcs/add/addPublisherForm.php');
+            break;
+        case 'addGenre':
+            include_once('admin_funcs/add/addGenreForm.php');
+            break;
+        case 'addAuthor':
+            include_once('admin_funcs/add/addAuthorForm.php');
+            break;
+
+        case 'modBook' :
+            include_once('admin_funcs/mod/modBookForm.php');
             break;
         default :
             echo '<p> Nincs funkció kiválasztva </p>';
