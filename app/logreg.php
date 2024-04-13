@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Bejelentkezés</h2>
-                    <form action="scripts/loginProcess.php" method="post">
+                    <form action="scripts/login.php" method="post">
                     <div class="form-group">
                             <input type="email" class="form-control" id="login-email" name="login-email" placeholder="Email-cím" required>
                         </div>

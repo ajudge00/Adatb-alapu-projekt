@@ -3,6 +3,7 @@
     $colorStores = "";
     $colorLogreg = "";
     $colorAdmin = "";
+    $colorUserButton = "";
 
     if(isset($_GET['page'])){
         switch ($_GET['page']){
@@ -14,8 +15,12 @@
                 break;
             case 'logreg':
                 $colorLogreg = "text-white";
+                break;
             case 'admin':
-                $colorAdmin = "text-white";
+                $colorUserButton = "text-white";
+                break;
+            case 'myPurchases':
+                $colorUserButton = "text-white";
         }
     }else{
         $colorProducts = "text-white";
@@ -23,50 +28,55 @@
 
 
     //menü
-    if (isset($_SESSION['user_id'])) {
-        // bejelentkezett user menüje. egyelőre ugyanolyan, mint a nem bejelentkezetté, kivéve, hogy itt elő van készítve a kijelentkezés gomb
-        $menuItems = '
-            <li class="nav-item">
-                <a class="nav-link ' . $colorProducts . '" href="?page=products">Könyveink</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link ' . $colorStores . '" href="?page=stores">Áruházaink</a>
-            </li>
-        ';
+    $menuItems = '
+        <li class="nav-item">
+            <a class="nav-link ' . $colorProducts . '" href="?page=products">Könyveink</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ' . $colorStores . '" href="?page=stores">Áruházaink</a>
+        </li>
+    ';
 
-        // kijelentkezés
+    if (isset($_SESSION['user_id'])) {
+        // bejelentkezett user jobb menüje
         $topRightButtons = '
             <li class="nav-item">
                 <a class="nav-link" href="scripts/logout.php">Kijelentkezés</a>
             </li>
         ';
-    } else {
-        // nem bejelentkezett user menüje
-        $menuItems = '
-            <li class="nav-item">
-                <a class="nav-link ' . $colorProducts . '" href="?page=products">Könyveink</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link ' . $colorStores . '" href="?page=stores">Áruházaink</a>
-            </li>
-        ';
 
-        // bejelentkezés/regisztráció
+        $userButtons = '';
+        if($_SESSION['admin'] == 1) {
+            $userButtons = '
+                <li class="nav-item">
+                    <a class="nav-link ' . $colorUserButton . '" href="?page=admin">Admin funkciók</a>
+                </li>
+            ';
+        } else {
+            $userButtons = '
+                <li class="nav-item">
+                    <a class="nav-link ' . $colorUserButton . '" href="?page=myPurchases">Vásárlásaim</a>
+                </li>
+            ';
+        }
+
+        $topRightButtons = $userButtons . $topRightButtons;
+    } else {
+        // nem bejelentkezett user jobb menüje
         $topRightButtons = '
-            <li class="nav-item">
-                <a class="nav-link ' . $colorAdmin . '" href="?page=admin">Admin funkciók</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link ' . $colorLogreg . '" href="?page=logreg">Bejelentkezés</a>
             </li>
         ';
     }
 
+
     // keresés gomb
     $topRightButtons .= '
         <li class="nav-item">
             <a class="nav-link img-fluid" href="?page=searchProduct"><img class="search-icon img-fluid" src="assets/icons/magnifying-glass-solid.png" alt="Keresés"></a>
-        </li>'
+        </li>
+    ';
 ?>
 
 

@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<?php include_once "menu.php" ?>
+<?php include "menu.php" ?>
 
 <!-- FŐ TARTALOM -->
 <div id="content">

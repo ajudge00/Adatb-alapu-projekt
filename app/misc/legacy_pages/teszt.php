@@ -1,2 +1,2 @@
 <?php
-echo date('y-m');
+echo password_hash('jelszo', PASSWORD_DEFAULT);
