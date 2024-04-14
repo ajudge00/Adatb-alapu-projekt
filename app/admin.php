@@ -1,58 +1,48 @@
 <?php
-include "scripts/connectDB.php";
+    include "scripts/connectDB.php";
+
+    $func = isset($_GET['func']) ? $_GET['func'] : null;
+
+    function colorListItem($listItem){
+        $chosenListItem = $GLOBALS['func'];
+
+        if ($chosenListItem != null){
+            return $listItem === $chosenListItem ? "style='background-color: #e0e0e0 !important'" : "";
+        } else {
+            return "";
+        }
+    }
+
 ?>
 
-<div>
-    <ul id="functionList">
-        Adatok kezelése
-        <ul id = "addList">
-            Adatok felvétele
-            <li>
-                <a href="?page=admin&func=addBook"> Könyv</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=addStore"> Áruház</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=addStock"> Készlet</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=addPublisher"> Kiadó</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=addGenre"> Műfaj</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=addAuthor"> Szerző</a>
-            </li>
+<div class="container mt-5">
+    <h2 class="mb-4">Adatok kezelése</h2>
+    <ul class="list-group" id="functionList">
+        <ul class="list-group" id="addList">
+            <h5 class="list-group-item bg-secondary text-light">Adatok felvétele</h5>
+            <li class="list-group-item" <?php echo colorListItem("addBook") ?>><a href="?page=admin&func=addBook">Könyv</a></li>
+            <li class="list-group-item" <?php echo colorListItem("addStore") ?>><a href="?page=admin&func=addStore">Áruház</a></li>
+            <li class="list-group-item" <?php echo colorListItem("addStock") ?>><a href="?page=admin&func=addStock">Készlet</a></li>
+            <li class="list-group-item" <?php echo colorListItem("addPublisher") ?>><a href="?page=admin&func=addPublisher">Kiadó</a></li>
+            <li class="list-group-item" <?php echo colorListItem("addGenre") ?>><a href="?page=admin&func=addGenre">Műfaj</a></li>
+            <li class="list-group-item" <?php echo colorListItem("addAuthor") ?>><a href="?page=admin&func=addAuthor">Szerző</a></li>
         </ul>
-        <ul id = "modifyList">
-            Adatok módosítása
-            <li>
-                <a href="?page=admin&func=modBook"> Könyv</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=modStore"> Áruház</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=modStock"> Készlet</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=modPublisher"> Kiadó</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=modGenre"> Műfaj</a>
-            </li>
-            <li>
-                <a href="?page=admin&func=modAuthor"> Szerző</a>
-            </li>
+        <ul class="list-group" id="modifyList">
+            <h5 class="list-group-item bg-secondary text-light">Adatok módosítása</h5>
+            <li class="list-group-item" <?php echo colorListItem("modBook")?>><a href="?page=admin&func=modBook">Könyv</a></li>
+            <li class="list-group-item" <?php echo colorListItem("modStore")?>><a href="?page=admin&func=modStore">Áruház</a></li>
+            <li class="list-group-item" <?php echo colorListItem("modStock")?>><a href="?page=admin&func=modStock">Készlet</a></li>
+            <li class="list-group-item" <?php echo colorListItem("modPublisher")?>><a href="?page=admin&func=modPublisher">Kiadó</a></li>
+            <li class="list-group-item" <?php echo colorListItem("modGenre")?>><a href="?page=admin&func=modGenre">Műfaj</a></li>
+            <li class="list-group-item" <?php echo colorListItem("modAuthor")?>><a href="?page=admin&func=modAuthor">Szerző</a></li>
         </ul>
     </ul>
 </div>
 
+<hr class="mt-5 ml-5 mr-5 bg-light">
+
 <div>
     <?php
-    $func = isset($_GET['func']) ? $_GET['func'] : null;
 
     switch ($func) {
         case 'addBook' :
@@ -93,7 +83,7 @@ include "scripts/connectDB.php";
             include_once('admin_funcs/mod/modAuthorForm.php');
             break;
         default :
-            echo '<p> Nincs funkció kiválasztva </p>';
+            echo '<div class="container mt-5"><p>Nincs funkció kiválasztva</p></div>';
     }
     ?>
 </div>
