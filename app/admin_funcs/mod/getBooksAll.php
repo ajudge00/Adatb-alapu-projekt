@@ -7,7 +7,7 @@ $sql = '
         konyv_cursor SYS_REFCURSOR;
     BEGIN
         OPEN konyv_cursor FOR
-            SELECT k.id, cim, sz.nev as szerzo, ki.kiado_nev, oldalszam, leiras, nyelv, m.mufaj_nev, m.almufaj_nev, k.ar
+            SELECT k.id, cim, sz.nev as szerzo, sz.id as szerzo_id, ki.kiado_nev as kiado, ki.id as kiado_id, oldalszam, leiras, nyelv, m.mufaj_nev as mufaj, m.id as mufaj_id, k.ar
             FROM konyv k
             LEFT JOIN szerzo sz ON sz.id = k.szerzo_id
             LEFT JOIN kiado ki ON ki.id = k.kiado_id

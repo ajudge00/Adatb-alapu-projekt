@@ -1,31 +1,39 @@
+<div class="container mt-5 mb-5">
+    <h3>Készlet felvétele</h3>
+    <form action="admin_funcs/add/addStock.php" method="post">
+        <div class="form-group">
+            <label for="book_select">Könyv</label>
+            <select class="form-control" name='book' id="book_select">
+                <?php
+                include 'admin_funcs/getBooks.php';
+                while (($row = oci_fetch_array($book_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                ?>
+                    <option value=<?php echo $row['ID'] ?>><?php echo $row['CIM'] ?></option>
+                <?php
+                }
+                ?>
+            </select>
+        </div>
 
-<form action="admin_funcs/add/addStock.php" method="post">
-    <label for="book_select"> Könyv </label> <br>
-    <select name='book' id="book_select">
-        <?php
-        include 'admin_funcs/getBooks.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
-        ?>
-            <option value=<?php echo $row['ID'] ?>> <?php echo $row['CIM'] ?> </option>
-        <?php
-        }
-        ?>
-    </select> <br>
+        <div class="form-group">
+            <label for="store_select">Áruház</label>
+            <select class="form-control" name='store' id="store_select">
+                <?php
+                include 'admin_funcs/getStores.php';
+                while (($row = oci_fetch_array($store_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                ?>
+                    <option value=<?php echo $row['ID'] ?>><?php echo $row['CIM'] ?></option>
+                <?php
+                }
+                ?>
+            </select>
+        </div>
 
-    <label for="store_select"> Áruház </label> <br>
-    <select name='store' id="store_select">
-        <?php
-        include 'admin_funcs/getStores.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
-        ?>
-            <option value=<?php echo $row['ID'] ?>> <?php echo $row['CIM'] ?> </option>
-        <?php
-        }
-        ?>
-    </select> <br>
+        <div class="form-group">
+            <label for="amount_input">Mennyiség</label>
+            <input type="number" class="form-control" name="amount" id="amount_input" min="1">
+        </div>
 
-    <label for="amount_input"> Mennyiség </label> <br>
-    <input type="number" name="amount" id="amount_input"> <br>
-
-    <button type="submit" class="btn btn-success">Hozzáadás</button>
-</form>
+        <button type="submit" class="btn btn-success">Hozzáadás</button>
+    </form>
+</div>
