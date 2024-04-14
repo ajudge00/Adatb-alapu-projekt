@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Regisztráció</h2>
-                    <form action="scripts/registerProcess.php" method="post">
+                    <form action="scripts/registration.php" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="register-fullname" name="register-fullname" placeholder="Teljes név" required>
                         </div>
@@ -59,6 +59,11 @@
                                     default:
                                         echo '<h6 class="text-success">Regisztráció sikeres</h6>';
                                 }
+                            }else if(isset($_GET['regsuccess']) && $_GET['regsuccess'] === '1'){
+                                echo
+                                    '<h6 class="text-success">Sikeres regisztráció... 
+                                        <a href="index.php">Tovább >></a>
+                                     </h6>';
                             }
                         ?>
                         <button type="submit" class="btn btn-success">Regisztráció</button>
