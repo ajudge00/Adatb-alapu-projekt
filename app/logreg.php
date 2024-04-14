@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Regisztráció</h2>
-                    <form action="scripts/registerProcess.php" method="post">
+                    <form action="scripts/registration.php" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="register-fullname" name="register-fullname" placeholder="Teljes név" required>
                         </div>
