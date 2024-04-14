@@ -25,7 +25,7 @@
     </select> <br>
 
     <label for="amount_input"> Mennyiség </label> <br>
-    <input type="number" name="amount" id="amount_input"> <br>
+    <input type="number" name="amount" id="amount_input" min="1"> <br>
 
     <button type="submit" class="btn btn-success">Hozzáadás</button>
 </form>
