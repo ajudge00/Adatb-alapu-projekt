@@ -1,6 +1,6 @@
 
 <?php
-include "scripts/getAllProducts.php";
+include "getBooksAll.php";
 ?>
 
 <table>
@@ -17,8 +17,8 @@ include "scripts/getAllProducts.php";
     <?php
         while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
-            <tr>
-                <form action="admin_funcs/mod/modBook.php" method="post">
+            <form action="admin_funcs/mod/modBook.php" method="post">
+                <tr>
                     <input type="hidden" name="id" value = "<?php echo $row['ID']; ?>">
 
                     <td> <input type="text" name="title" id="title_input" value="<?php echo $row['CIM']; ?>"> </td>
@@ -48,8 +48,33 @@ include "scripts/getAllProducts.php";
                         ?>
                         </select> 
                     </td>
-                </form>
-            </tr>
+
+                    <td> <input type="number" style="width: 7em" name="page_count" id="page_count_input" value="<?php echo $row['OLDALSZAM']; ?>"> </td>
+
+                    <td> <input type="text" size=50 name="desc" id="desc_input" value="<?php echo $row['LEIRAS']; ?>"> </td>
+
+                    <td> <input type="text" style="width: 7em" name="lang" id="lang_input" value="<?php echo $row['NYELV']; ?>"> </td>
+
+                    <td>
+                        <select name='genre' id="genre_select">
+                        <?php
+                        include "admin_funcs/getGenres.php";
+                        while (($genre_row = oci_fetch_array($genre_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                        ?>
+                            <option value="<?php echo $genre_row['ID']; ?>" <?php if ($genre_row['ID'] == $row['MUFAJ_ID']) echo 'selected = "selected"'; ?> > <?php echo $genre_row['NEV'] . ', ' . $genre_row['ALMUFAJ_NEV'] ?> </option>
+                        <?php
+                        }
+                        ?>
+                        </select> 
+                    </td>
+
+                    <td> <input type="number" style="width: 7em" name="price" id="price_input" value="<?php echo $row['AR']; ?>">  </td>
+
+                    <td> <button type="submit" name="submit" value="mod" class="btn btn-success"> Módosítás </button> </td>
+
+                    <td> <button type="submit" name="submit" value="del" class="btn btn-danger"> Törlés </button> </td>
+                </tr>
+            </form>
         <?php
         }
         ?>

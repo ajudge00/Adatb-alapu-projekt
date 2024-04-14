@@ -77,6 +77,21 @@ include "scripts/connectDB.php";
         case 'modBook' :
             include_once('admin_funcs/mod/modBookForm.php');
             break;
+        case 'modStore' :
+            include_once('admin_funcs/mod/modStoreForm.php');
+            break;
+        case 'modStock' :
+            include_once('admin_funcs/mod/modStockForm.php');
+            break;
+        case 'modPublisher' :
+            include_once('admin_funcs/mod/modPublisherForm.php');
+            break;
+        case 'modGenre' :
+            include_once('admin_funcs/mod/modGenreForm.php');
+            break;
+        case 'modAuthor' :
+            include_once('admin_funcs/mod/modAuthorForm.php');
+            break;
         default :
             echo '<p> Nincs funkció kiválasztva </p>';
     }

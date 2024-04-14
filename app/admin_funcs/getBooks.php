@@ -1,6 +1,6 @@
 <?php
 
-include "../../scripts/connectDB.php";
+//include "../../scripts/connectDB.php";
 
 $sql = '
     DECLARE
@@ -16,10 +16,10 @@ $sql = '
 
 $stmt = oci_parse($conn, $sql);
 
-$cursor = oci_new_cursor($conn);
-oci_bind_by_name($stmt, ':cursor', $cursor, -1, OCI_B_CURSOR);
+$book_cursor = oci_new_cursor($conn);
+oci_bind_by_name($stmt, ':cursor', $book_cursor, -1, OCI_B_CURSOR);
 
 oci_execute($stmt);
-oci_execute($cursor);
+oci_execute($book_cursor);
 
 ?>

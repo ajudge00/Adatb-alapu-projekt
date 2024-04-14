@@ -4,7 +4,7 @@
     <select name='book' id="book_select">
         <?php
         include 'admin_funcs/getBooks.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+        while (($row = oci_fetch_array($book_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
             <option value=<?php echo $row['ID'] ?>> <?php echo $row['CIM'] ?> </option>
         <?php
@@ -16,7 +16,7 @@
     <select name='store' id="store_select">
         <?php
         include 'admin_funcs/getStores.php';
-        while (($row = oci_fetch_array($cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+        while (($row = oci_fetch_array($store_cursor, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         ?>
             <option value=<?php echo $row['ID'] ?>> <?php echo $row['CIM'] ?> </option>
         <?php
