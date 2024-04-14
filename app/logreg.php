@@ -59,11 +59,6 @@
                                     default:
                                         echo '<h6 class="text-success">Regisztráció sikeres</h6>';
                                 }
-                            }else if(isset($_GET['regsuccess']) && $_GET['regsuccess'] === '1'){
-                                echo
-                                    '<h6 class="text-success">Sikeres regisztráció... 
-                                        <a href="index.php">Tovább >></a>
-                                     </h6>';
                             }
                         ?>
                         <button type="submit" class="btn btn-success">Regisztráció</button>

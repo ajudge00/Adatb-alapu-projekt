@@ -32,18 +32,43 @@ if ($email_count > 0) {
 // Hash password
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// Insert new user into database
-$sql_insert_user = 'INSERT INTO FELHASZNALO (NEV, EMAIL, JELSZO) VALUES (:name, :email, :password)';
-$stmt_insert_user = oci_parse($conn, $sql_insert_user);
-oci_bind_by_name($stmt_insert_user, ':name', $name);
-oci_bind_by_name($stmt_insert_user, ':email', $email);
-oci_bind_by_name($stmt_insert_user, ':password', $hashed_password);
-oci_execute($stmt_insert_user);
+// Get the current max ID
+$sql_max_id = 'SELECT MAX(ID) FROM FELHASZNALO';
+$stmt_max_id = oci_parse($conn, $sql_max_id);
+oci_execute($stmt_max_id);
+$row = oci_fetch_array($stmt_max_id);
+$max_id = $row[0];
+oci_free_statement($stmt_max_id);
 
-oci_free_statement($stmt_insert_user);
-oci_close($conn);
+// Calculate the new ID
+$new_id = $max_id + 1;
 
-header("Location: ../index.php?page=logreg&registrationsuccess=1");
-exit();
+// Insert new user into database with exception handling
+try {
+    $sql_insert_user = 'INSERT INTO FELHASZNALO (ID, NEV, EMAIL, JELSZO, TORZSVASARLO, ADMIN) VALUES (:id, :name, :email, :password, 0, 0)';
+    $stmt_insert_user = oci_parse($conn, $sql_insert_user);
+    oci_bind_by_name($stmt_insert_user, ':id', $new_id);
+    oci_bind_by_name($stmt_insert_user, ':name', $name);
+    oci_bind_by_name($stmt_insert_user, ':email', $email);
+    oci_bind_by_name($stmt_insert_user, ':password', $hashed_password);
 
+    oci_execute($stmt_insert_user);
+    
+    // Commit transaction
+    oci_commit($conn);
+    oci_free_statement($stmt_insert_user);
+    oci_close($conn);
+    
+    header("Location: ../index.php?page=logreg&registrationsuccess=1");
+    exit();
+} catch (Exception $e) {
+    // Rollback transaction on error
+    oci_rollback($conn);
+    oci_free_statement($stmt_insert_user);
+    oci_close($conn);
+    
+    header("Location: ../index.php?page=logreg&registrationerror=1&errormsg=Regisztráció sikertelen");
+    exit();
+}
 ?>
+    
