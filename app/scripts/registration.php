@@ -45,12 +45,17 @@ $new_id = $max_id + 1;
 
 // Insert new user into database with exception handling
 try {
-    $sql_insert_user = 'INSERT INTO FELHASZNALO (ID, NEV, EMAIL, JELSZO, TORZSVASARLO, ADMIN) VALUES (:id, :name, :email, :password, 0, 0)';
+ //   $sql_insert_user = 'INSERT INTO FELHASZNALO (ID, NEV, EMAIL, JELSZO, TORZSVASARLO, ADMIN) VALUES (:id, :name, :email, :password, 0, 0)';
+    $sql_insert_user = 'INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES (:id,:name,:email,:password,0,0)';
+
     $stmt_insert_user = oci_parse($conn, $sql_insert_user);
-    oci_bind_by_name($stmt_insert_user, ':id', $new_id);
-    oci_bind_by_name($stmt_insert_user, ':name', $name);
-    oci_bind_by_name($stmt_insert_user, ':email', $email);
-    oci_bind_by_name($stmt_insert_user, ':password', $hashed_password);
+    oci_bind_by_name($stmt_insert_user, ':id', $new_id, 5);
+    oci_bind_by_name($stmt_insert_user, ':name', $name, 40);
+    oci_bind_by_name($stmt_insert_user, ':email', $email, 40);
+    oci_bind_by_name($stmt_insert_user, ':password', $hashed_password, 100);
+    
+   // oci_bind_by_name($stmt, ':torzsvasarlo', $torzsvasarlo, 0);
+   // oci_bind_by_name($stmt, ':admin', $admin, 0);
 
     oci_execute($stmt_insert_user);
     
@@ -71,4 +76,3 @@ try {
     exit();
 }
 ?>
-    
