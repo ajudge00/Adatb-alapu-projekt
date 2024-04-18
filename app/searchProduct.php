@@ -62,7 +62,7 @@
 
             while ($row = oci_fetch_array($stmt, OCI_ASSOC+OCI_RETURN_NULLS)) {
                 echo "<tr>";
-                echo "<td><h5 class='card-title'><a href='index.php?page=item&id=" . $row['ID'] . "'>" . $row['CIM'] . "</a></h5></td>";
+                echo "<td><h5 class='card-title'><a href='index.php?page=itemid=" . $row['ID'] . "'>" . $row['CIM'] . "</a></h5></td>";
                 echo "<td>" . $row['SZERZO'] . "</td>";
                 echo "<td>" . $row['AR'] . " Ft</td>";
                 echo "</tr>";
@@ -98,9 +98,9 @@
 
         // Sort the rows
         rows.sort((a, b) => {
-            const cellTextA = a.children[column].innerText.trim().toLowerCase();
-            const cellTextB = b.children[column].innerText.trim().toLowerCase();
-            return asc ? cellTextA.localeCompare(cellTextB) : cellTextB.localeCompare(cellTextA);
+            const cellTextA = a.children[column].innerText.trim();
+            const cellTextB = b.children[column].innerText.trim();
+            return asc ? cellTextA.localeCompare(cellTextB, 'hu', {numeric: true}) : cellTextB.localeCompare(cellTextA, 'hu', {numeric: true});
         });
 
         // Clear the table body
