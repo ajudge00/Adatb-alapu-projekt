@@ -1,30 +1,19 @@
 <?php
-session_start();
+session_start(); // Start session if not already started
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["item_id"])) {
-        $item_id = $_POST["item_id"];
-
-        if (isset($_COOKIE["cart"])) {
-            $cart = json_decode($_COOKIE["cart"], true);
-        } else {
-            $cart = [];
-        }
-
-        if (array_key_exists($item_id, $cart)) {
-            $cart[$item_id]++;
-        } else {
-            $cart[$item_id] = 1;
-        }
-
-        setcookie("cart", json_encode($cart), time() + (86400 * 30), "/");
-
-
+    if (isset($_POST["book_id"])) {
+        $book_id = $_POST["book_id"];
+        
+        // Add book_id to cart session variable
+        $_SESSION["cart"][$book_id] = isset($_SESSION["cart"][$book_id]) ? $_SESSION["cart"][$book_id] + 1 : 1;
+        
+        // Set a flag to indicate that item has been added to cart
         $_SESSION["cart_added"] = true;
     }
 }
 
-
+// Redirect back to the previous page
 header("Location: " . $_SERVER["HTTP_REFERER"]);
 exit();
 ?>
