@@ -5,11 +5,19 @@ function konyvReszletek($konyv_id, $conn) {
     $sql = "
         SELECT
             k.cim,
-            sz.nev as szerzo,
+            s.nev AS szerzo,
             k.ar
-        FROM KONYV k 
-        LEFT JOIN SZERZO sz ON k.szerzo_id = sz.id
-        WHERE k.id = :konyv_id";
+        FROM 
+            KONYV k
+            LEFT JOIN (
+                SELECT 
+                    id, 
+                    nev 
+                FROM 
+                    SZERZO
+            ) s ON k.szerzo_id = s.id
+        WHERE 
+            k.id = :konyv_id";
 
     $stmt = oci_parse($conn, $sql);
 
