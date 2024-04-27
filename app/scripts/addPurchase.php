@@ -44,9 +44,24 @@ foreach ($_SESSION['cart'] as $bookId => $quantity) {
 
 oci_commit($conn);
 
-// cart törlése
+
+
+foreach ($_SESSION['cart'] as $bookId => $quantity) {
+    $updateInventorySql = "
+        UPDATE KESZLET
+        SET MENNYISEG = MENNYISEG - :quantity
+        WHERE KONYV_ID = :bookId
+        AND ROWNUM = 1";
+    $stmt = oci_parse($conn, $updateInventorySql);
+    oci_bind_by_name($stmt, ":quantity", $quantity);
+    oci_bind_by_name($stmt, ":bookId", $bookId);
+    oci_execute($stmt);
+    oci_free_statement($stmt);
+}
+
 unset($_SESSION["cart"]);
 
 header('Location: ../index.php?page=myPurchases');
 exit();
+
 ?>

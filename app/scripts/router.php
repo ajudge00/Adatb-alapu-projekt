@@ -4,11 +4,11 @@
 $page = isset($_GET['page']) ? $_GET['page'] : 'products';
 
 // kosaram, vásárlásaim, kijelentkezés
-$protectedNormal = ["logreg", "admin"];
+$protectedNormal = ["admin"];
 
 $protectedUnregistered = ["admin", "myPurchases"];
 
-$protectedAdmin = ["logreg", "cart"];
+$protectedAdmin = ["cart"];
 
 
 // csekk hogy be van e jelentkezve --> vedett oldalak
