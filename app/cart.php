@@ -36,35 +36,6 @@ function konyvReszletek($konyv_id, $conn) {
             <tbody>";
 
         foreach ($_SESSION["cart"] as $konyv_id => $mennyiseg) {
-<<<<<<< HEAD
-            // Lekérdezés a könyv részleteinek lekérésére
-            $sql = "SELECT k.cim, s.nev AS szerzo, k.ar  FROM KONYV k INNER JOIN (SELECT id, nev FROM SZERZO) s ON k.szerzo_id = s.id WHERE k.id = :konyv_id";
-
-            // Lekérdezés előkészítése
-         
-
-            // Paraméter beállítása és bindelése
-            oci_bind_by_name($stmt, ":konyv_id", $konyv_id);
-
-            // Lekérdezés végrehajtása
-            oci_execute($stmt);
-
-            // Eredmény fetchelése
-            $row = oci_fetch_assoc($stmt);
-
-            if ($row) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['cim']) . "</td>"; // Kimenet escapelése
-                echo "<td>" . htmlspecialchars($row['szerzo']) . "</td>"; // Kimenet escapelése
-                echo "<td>" . htmlspecialchars($row['ar']) . " Ft</td>"; // Kimenet escapelése
-                echo "<td>" . htmlspecialchars($mennyiseg) . "</td>"; // Kimenet escapelése
-                echo "</tr>";
-            } else {
-                echo "<tr>";
-                echo "<td colspan='4'>Nem sikerült betölteni a könyv részleteit.</td>";
-                echo "</tr>";
-            }
-=======
             $konyv = konyvReszletek($konyv_id, $conn);
             $osszeg += $konyv["AR"] * $mennyiseg;
             echo "
@@ -144,7 +115,6 @@ function konyvReszletek($konyv_id, $conn) {
                     </div>
                 </div>
             ";
->>>>>>> b1712c4c699c6061f55e8581fef9c93a0fac7853
         }
 
     } else {
