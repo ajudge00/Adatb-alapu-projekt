@@ -3,11 +3,12 @@
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'products';
 
-
+// kosaram, vásárlásaim, kijelentkezés
 $protectedNormal = ["admin"];
 
-$protectedUnregistered = [];
-$protectedUnregistered = array_merge($protectedNormal, ["myPurchases"]);
+$protectedUnregistered = ["admin", "myPurchases"];
+
+$protectedAdmin = ["cart"];
 
 
 // csekk hogy be van e jelentkezve --> vedett oldalak
@@ -17,7 +18,13 @@ if (!isset($_SESSION['user_id']) && in_array($page, $protectedUnregistered)) {
 }
 
 // csekk hogy admin e --> adminvédett oldalak
-if(isset($_SESSION['role']) && $_SESSION['admin'] !== true && in_array($page, $protectedNormal)){
+if(isset($_SESSION['user_id']) && !$_SESSION['admin'] && in_array($page, $protectedNormal)){
+    header("Location: index.php");
+    exit();
+}
+
+// admintól védett
+if(isset($_SESSION["user_id"]) && $_SESSION["admin"] && in_array($page, $protectedAdmin)){
     header("Location: index.php");
     exit();
 }
@@ -28,14 +35,14 @@ switch ($page) {
     case 'stores':
         include('stores.php');
         break;
+    case 'connection':
+        include('connection.php');
+        break;
+    case 'cart':
+        include('cart.php');
+        break;
     case 'admin':
         include('admin.php');
-        break;
-    case 'searchProduct':
-        include('searchProduct.php');
-        break;
-    case 'logreg':
-        include('logreg.php');
         break;
     case 'item':
         include('item.php');
@@ -43,11 +50,11 @@ switch ($page) {
     case 'myPurchases':
         include('myPurchases.php');
         break;
-    case 'connection':
-        include('connection.php');
+    case 'logreg':
+        include('logreg.php');
         break;
-    case 'cart':
-        include('cart.php');
+    case 'searchProduct':
+        include('searchProduct.php');
         break;
     default:
         include('products.php');

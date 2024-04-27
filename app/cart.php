@@ -1,25 +1,22 @@
 <?php
+include "scripts/connectDB.php";
 
+function konyvReszletek($konyv_id, $conn) {
+    $sql = "
+        SELECT
+            k.cim,
+            sz.nev as szerzo,
+            k.ar
+        FROM KONYV k 
+        LEFT JOIN SZERZO sz ON k.szerzo_id = sz.id
+        WHERE k.id = :konyv_id";
 
-include "scripts/connectDB.php"; // Adatbázis kapcsolat
+    $stmt = oci_parse($conn, $sql);
 
-// Függvény a könyv részleteinek lekérdezésére könyvazonosító alapján
-function konyvRészletek($konyv_id, $kapcsolat) {
-    $sql = "SELECT k.cim, s.szerzo, k.ar FROM KONYV k INNER JOIN Szerzo s ON k.szerzo_id = s.id WHERE k.id = :konyv_id";
-
-    // Lekérdezés előkészítése
-    $stmt = oci_parse($kapcsolat, $sql);
-
-    // Paraméter beállítása és bindelése
     oci_bind_by_name($stmt, ":konyv_id", $konyv_id);
-
-    // Lekérdezés végrehajtása
     oci_execute($stmt);
 
-    // Eredmény fetchelése
     $row = oci_fetch_assoc($stmt);
-
-    // Lekérdezés lezárása
     oci_free_statement($stmt);
 
     return $row;
@@ -28,21 +25,18 @@ function konyvRészletek($konyv_id, $kapcsolat) {
 ?>
 
 <div class="container mt-5">
-    <h2>A kosarad</h2>
+    <h2>Kosaram</h2>
     <?php
     if (!empty($_SESSION["cart"])) {
-        echo "<table class='table'>";
-        echo "<thead>";
-        echo "<tr>";
-        echo "<th>Cím</th>";
-        echo "<th>Szerző</th>";
-        echo "<th>Ár</th>";
-        echo "<th>Mennyiség</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
+        $_SESSION["torzsvasarlo"] = false;
+        $kedvezmeny_multiplier = $_SESSION["torzsvasarlo"] == true ? 0.9 : 1.0;
+        $osszeg = 0;
+        echo "
+        <table class='table-striped'>
+            <tbody>";
 
         foreach ($_SESSION["cart"] as $konyv_id => $mennyiseg) {
+<<<<<<< HEAD
             // Lekérdezés a könyv részleteinek lekérésére
             $sql = "SELECT k.cim, s.nev AS szerzo, k.ar  FROM KONYV k INNER JOIN (SELECT id, nev FROM SZERZO) s ON k.szerzo_id = s.id WHERE k.id = :konyv_id";
 
@@ -70,10 +64,89 @@ function konyvRészletek($konyv_id, $kapcsolat) {
                 echo "<td colspan='4'>Nem sikerült betölteni a könyv részleteit.</td>";
                 echo "</tr>";
             }
+=======
+            $konyv = konyvReszletek($konyv_id, $conn);
+            $osszeg += $konyv["AR"] * $mennyiseg;
+            echo "
+                <tr>
+                    <td style='width: 30%;'>
+                        <img src='assets/productImages/literally.jpg' alt='könyv kép' class='img-fluid' style='max-width: 50%; display: block; margin-left: auto; margin-right: auto;'>
+                    </td>
+                    <td style='width: 40%;'><p><strong>" . 
+                        $konyv["CIM"] . "</strong></p><p><em>" .
+                        $konyv["SZERZO"] . "</em></p>
+                    </td>
+                    <td style='width: 30%;'>
+                        <p><strong>Ár:</strong> " . $mennyiseg . " db * " . $konyv["AR"] . " Ft</p>
+                    </td>
+                </tr>
+            ";
         }
 
-        echo "</tbody>";
-        echo "</table>";
+        $kedvezmeny_sor = "";
+        if($_SESSION["torzsvasarlo"]){
+            $kedvezmeny_sor .= "
+                <tr>
+                    <td colspan='3' class='text-right'>
+                        Törzsvásárlói kedvezmény: <strong>-10%</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='3' class='text-right'>
+                        Kedvezmény értéke: <strong> -" . ($osszeg - $osszeg * $kedvezmeny_multiplier) . " Ft</strong>
+                    </td>
+                </tr>";
+        }
+
+        $vegosszeg = $_SESSION["torzsvasarlo"] ? "Végösszeg: <s><em>" . $osszeg . " Ft</em></s> <strong>" . $osszeg * $kedvezmeny_multiplier . " Ft</strong>" : "Végösszeg: <strong>" . $osszeg . " Ft</strong>";
+
+        echo $kedvezmeny_sor . "
+                <tr>
+                    <td colspan='3' class='text-right'>
+                        " . $vegosszeg . "
+                    </td>
+                </tr>
+            </tbody>
+        </table>";
+
+
+        if(!isset($_SESSION["user_id"])){
+            echo "
+                <p class='float-right'>A vásárláshoz <a href='?page=logreg'>jelentkezz be</a>!</p>
+            ";
+        } else {
+            echo "
+                <button type='button' class='btn btn-primary float-right' data-toggle='modal' data-target='#receiptModal'>
+                    Vásárlás befejezése
+                </button>
+            ";
+
+            echo "
+                <div class='modal fade' id='receiptModal' tabindex='-1' role='dialog' aria-labelledby='receiptModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='receiptModalLabel'>Vásárlás befejezése</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                <form action='scripts/addPurchase.php' method='post'>
+                                    <div class='form-group'>
+                                        <label for='shippingLocation'>Vásárlási cím:</label>
+                                        <input type='text' class='form-control' id='shippingLocation' name='shippingLocation' required>
+                                    </div>
+                                    <button type='submit' class='btn btn-success float-right mt-3'>Vásárlás jóváhagyása</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ";
+>>>>>>> b1712c4c699c6061f55e8581fef9c93a0fac7853
+        }
+
     } else {
         echo "<p>A kosarad üres</p>";
     }

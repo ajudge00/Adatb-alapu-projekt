@@ -47,8 +47,8 @@ unset($_SESSION["cart_added"]);
             ?>
             <h3 class="mt-3"><?php echo $ar; ?> Ft</h3>
             <form action="scripts/addToCart.php" method="post">
-                <input type="hidden" name="book_id" value="<?php echo $book_id; ?>">
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+                <button type="submit" class="btn btn-primary">Kosárba</button>
             </form>
             <div class="row mt-5">
                 <div class="col-md-2">

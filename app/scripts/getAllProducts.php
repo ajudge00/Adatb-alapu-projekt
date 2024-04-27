@@ -21,7 +21,8 @@ if(isset($_GET["filter"])){
                 LEFT JOIN szerzo sz ON sz.id = k.szerzo_id
                 LEFT JOIN kiado ki ON ki.id = k.kiado_id
                 LEFT JOIN mufaj m ON m.id = k.mufaj_id
-                WHERE ' . ($filterCond == "genre" ? "m.mufaj_nev" : "m.almufaj_nev") . ' = :filterValue;
+                WHERE ' . ($filterCond == "genre" ? "m.mufaj_nev" : "m.almufaj_nev") . ' = :filterValue
+                ORDER BY k.id;
 
             :cursor := konyv_cursor;
         END;
@@ -39,7 +40,8 @@ if(isset($_GET["filter"])){
                 FROM konyv k
                 LEFT JOIN szerzo sz ON sz.id = k.szerzo_id
                 LEFT JOIN kiado ki ON ki.id = k.kiado_id
-                LEFT JOIN mufaj m ON m.id = k.mufaj_id;
+                LEFT JOIN mufaj m ON m.id = k.mufaj_id
+                ORDER BY k.id;
     
             :cursor := konyv_cursor;
         END;
