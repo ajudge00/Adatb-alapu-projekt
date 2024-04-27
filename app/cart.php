@@ -44,7 +44,7 @@ function konyvRészletek($konyv_id, $kapcsolat) {
 
         foreach ($_SESSION["cart"] as $konyv_id => $mennyiseg) {
             // Lekérdezés a könyv részleteinek lekérésére
-            $sql = "SELECT k.cim, s.szerzo, k.ar FROM KONYV k INNER JOIN Szerzo s ON k.szerzo_id = s.id WHERE k.id = :konyv_id";
+            $sql = "SELECT k.cim, s.nev AS szerzo, k.ar  FROM KONYV k INNER JOIN (SELECT id, nev FROM SZERZO) s ON k.szerzo_id = s.id WHERE k.id = :konyv_id";
 
             // Lekérdezés előkészítése
          

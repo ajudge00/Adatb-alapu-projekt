@@ -20,7 +20,9 @@
 
         if(isset($_POST['search'])) {
             $search_term = '%' . $_POST['search'] . '%';
-            $sql = "SELECT COUNT(*) AS talalatok FROM KONYV k JOIN SZERZO s ON k.szerzo_id = s.id WHERE k.cim LIKE :search_term OR s.nev LIKE :search_term";
+            $sql = "SELECT COUNT(*) AS talalatok FROM KONYV k JOIN  (
+                SELECT id, nev
+                FROM szerzo ) s ON k.szerzo_id = s.id WHERE k.cim LIKE :search_term OR s.nev LIKE :search_term";
             $stmt = oci_parse($conn, $sql);
             oci_bind_by_name($stmt, ':search_term', $search_term);
             oci_execute($stmt);
@@ -63,12 +65,13 @@
 
         if(isset($_POST['search'])) {
             $search_term = '%' . $_POST['search'] . '%';
-            $sql = "SELECT k.id, k.cim, s.nev AS szerzo, k.ar FROM KONYV k JOIN SZERZO s ON k.szerzo_id = s.id WHERE k.cim LIKE :search_term OR s.nev LIKE :search_term ORDER BY $order_by";
+            $sql = "SELECT k.id, k.cim, s.nev AS szerzo, k.ar FROM KONYV k JOIN (SELECT id, nev FROM SZERZO) s ON k.szerzo_id = s.id 
+                    WHERE  k.cim LIKE :search_term  OR s.nev LIKE :search_term ORDER BY $order_by";
             $stmt = oci_parse($conn, $sql);
             oci_bind_by_name($stmt, ':search_term', $search_term);
             oci_execute($stmt);
         } else {
-            $sql = "SELECT k.id, k.cim, s.nev AS szerzo, k.ar FROM KONYV k JOIN SZERZO s ON k.szerzo_id = s.id ORDER BY $order_by";
+            $sql = "SELECT k.id, k.cim, s.nev AS szerzo, k.ar FROM KONYV k JOIN (SELECT id, nev FROM SZERZO) s ON k.szerzo_id = s.id ORDER BY $order_by";
             $stmt = oci_parse($conn, $sql);
             oci_execute($stmt);
         }
