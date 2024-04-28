@@ -1,59 +1,62 @@
 <?php
-include "scripts/connectDB.php"; // Adatbázis csatlakozás
+include "scripts/connectDB.php"; 
 
-// SQL lekérdezés futtatása az áruházak címeire
-$sql = "SELECT cim FROM ARUHAZ";
+$sql = "SELECT id, cim FROM ARUHAZ";
 $stmt = oci_parse($conn, $sql);
 
-// Lekérdezés végrehajtása
 oci_execute($stmt);
+
+$admin = isset($_SESSION['user_id']) && $_SESSION['admin'];
 ?>
 
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Áruházaink</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
 
-<h1>Áruházaink címei</h1>
+<div class="container mt-5">
+    <h2>Áruházaink</h2>
+    <table class='table table-striped'>
+        <tbody>
+        <?php
+        while ($row = oci_fetch_assoc($stmt)) {
+            echo '
+                <tr>
+                    <td>' .
+                        $row['CIM'];
 
-<table>
-<tr><th>Cím:</th></tr>
+                        if ($admin){
+                            echo '<br><a href="?page=stores&id=' . $row['ID'] . '#stocktable">Részletek</a>';
+                        }
+
+                    echo 
+                    '</td>
+                </tr>
+            ';
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+
+<?php if($admin && isset($_GET['id'])): ?>
+<?php include "scripts/getStockAtStore.php"; ?>
+<div class="container mt-5">
+    <h4 id="stocktable">Készlet <strong><?php echo '"' . $aruhaz_cim_valasztott['CIM'] . '"' ?></strong> áruházunkban:</h4>
+    <table class="table table-striped mt-3" style="max-width: 50%;">
+    <th>Könyv</th>
+    <th>Példányszám</th>
+        <?php 
+            
+            while($row = oci_fetch_assoc($stmt)){
+                echo
+                    '<tr>' .
+                        '<td><a href="?page=item&id=' . $row['KONYV_ID'] . '">' . $row['KONYV_CIM'] . '</a></td>' .
+                        '<td>' . $row['MENNYISEG'] . '</td>' .
+                    '</tr>';
+                }
+                ?>
+    </table>;
+</div>
+<?php endif; ?>
 
 <?php
-// Táblázat létrehozása és adatok kiírása
-while ($row = oci_fetch_array($stmt, OCI_ASSOC+OCI_RETURN_NULLS)) {
-    echo "<tr>\n";
-    foreach ($row as $item) {
-        echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-    }
-    echo "</tr>\n";
-}
-?>
-
-</table>
-
-<?php
-// Statement és kapcsolat lezárása
 oci_free_statement($stmt);
 oci_close($conn);
 ?>
-</body>
-</html>
