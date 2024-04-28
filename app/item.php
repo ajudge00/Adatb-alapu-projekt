@@ -49,10 +49,20 @@ unset($_SESSION["cart_added"]);
                 }
             ?>
             <h3 class="mt-3"><?php echo $ar; ?> Ft</h3>
-            <form action="scripts/addToCart.php" method="post">
-                <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
-                <button type="submit" class="btn btn-primary">Kosárba</button>
-            </form>
+            <?php
+            if($konyv_elerheto){
+                echo '
+                    <form action="scripts/addToCart.php" method="post">
+                        <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+                        <button type="submit" class="btn btn-primary">Kosárba</button>
+                    </form>
+                ';
+            }else{
+                echo '
+                    <button class="btn btn-secondary">Kosárba</button>
+                ';
+            }
+            ?>
             <div class="row mt-5">
                 <div class="col-md-2">
                     <p><strong>Kiadó:</strong></p>
@@ -80,7 +90,12 @@ unset($_SESSION["cart_added"]);
                         if ($konyv_elerheto){
                             echo '<p>A termék elérhető következő partnereinknél: </p>';
                             foreach ($aruhaz_arr as $aruhaz) {
-                                echo "<li class='ml-5'>" . $aruhaz['ARUHAZ_CIM'] . "</li>";
+                                echo "<li class='ml-5'>";
+                                if (isset($_SESSION["user_id"]) && $_SESSION["admin"] == true){
+                                    echo "(" . $aruhaz['MENNYISEG'] . " példány) ";
+                                }
+
+                                echo $aruhaz['ARUHAZ_CIM'] . "</li>";
                             }
                         }else{
                             echo '<p>A termék jelenleg nem elérhető.</p>';
