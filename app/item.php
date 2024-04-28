@@ -41,6 +41,9 @@ unset($_SESSION["cart_added"]);
             <?php
                 if ($konyv_elerheto){
                     echo "<h6 class='text-success'>Raktáron</h6>";
+                    if ($kifuto){
+                        echo "<h6 class='text-warning'>Kifutó termék!</h6>";
+                    }
                 }else{
                     echo "<h6 class='text-danger'>Nincs raktáron</h6>";
                 }

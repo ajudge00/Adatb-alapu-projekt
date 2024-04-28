@@ -15,7 +15,8 @@ $sql = '
             nyelv VARCHAR2(20),
             mufaj_nev VARCHAR2(40),
             almufaj_nev VARCHAR2(40),
-            ar NUMBER
+            ar NUMBER,
+            kifuto NUMBER
         );
         v_konyv konyv_rekord;
     BEGIN
@@ -29,7 +30,8 @@ $sql = '
             nyelv,
             m.mufaj_nev,
             m.almufaj_nev,
-            k.ar
+            k.ar,
+            k.kifuto
             INTO v_konyv
         FROM konyv k
         LEFT JOIN szerzo sz ON sz.id = k.szerzo_id
@@ -46,6 +48,7 @@ $sql = '
         :mufaj_nev := v_konyv.MUFAJ_NEV;
         :almufaj_nev := v_konyv.ALMUFAJ_NEV;
         :ar := v_konyv.AR;
+        :kifuto := v_konyv.KIFUTO;
     END;
 ';
 
@@ -62,6 +65,7 @@ oci_bind_by_name($stmt, ':nyelv', $nyelv, 20);
 oci_bind_by_name($stmt, ':mufaj_nev', $mufaj_nev, 40);
 oci_bind_by_name($stmt, ':almufaj_nev', $almufaj_nev, 40);
 oci_bind_by_name($stmt, ':ar', $ar, SQLT_INT);
+oci_bind_by_name($stmt, ':kifuto', $kifuto, 1);
 
 
 oci_execute($stmt);
