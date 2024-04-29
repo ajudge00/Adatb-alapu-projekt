@@ -53,7 +53,7 @@ unset($_SESSION["cart_added"]);
             if($konyv_elerheto){
                 echo '
                     <form action="scripts/addToCart.php" method="post">
-                        <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+                        <input type="hidden" name="item_id" value="' . $item_id . '">
                         <button type="submit" class="btn btn-primary">Kosárba</button>
                     </form>
                 ';

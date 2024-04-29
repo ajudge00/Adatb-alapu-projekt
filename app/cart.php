@@ -7,17 +7,16 @@ function konyvReszletek($konyv_id, $conn) {
             k.cim,
             s.nev AS szerzo,
             k.ar
-        FROM 
-            KONYV k
-            LEFT JOIN (
-                SELECT 
-                    id, 
-                    nev 
-                FROM 
-                    SZERZO
-            ) s ON k.szerzo_id = s.id
+        FROM KONYV k
+        LEFT JOIN (
+            SELECT 
+                id, 
+                nev 
+            FROM SZERZO
+        ) s ON k.szerzo_id = s.id
         WHERE 
-            k.id = :konyv_id";
+            k.id = :konyv_id
+    ";
 
     $stmt = oci_parse($conn, $sql);
 
@@ -36,8 +35,8 @@ function konyvReszletek($konyv_id, $conn) {
     <h2>Kosaram</h2>
     <?php
     if (!empty($_SESSION["cart"])) {
-        $_SESSION["torzsvasarlo"] = false;
-        $kedvezmeny_multiplier = $_SESSION["torzsvasarlo"] == true ? 0.9 : 1.0;
+        $torzsvasarlo = isset($_SESSION["torzsvasarlo"]) && $_SESSION["torzsvasarlo"];
+        $kedvezmeny_multiplier = $torzsvasarlo ? 0.9 : 1.0;
         $osszeg = 0;
         echo "
         <table class='table-striped'>
@@ -63,7 +62,7 @@ function konyvReszletek($konyv_id, $conn) {
         }
 
         $kedvezmeny_sor = "";
-        if($_SESSION["torzsvasarlo"]){
+        if($torzsvasarlo){
             $kedvezmeny_sor .= "
                 <tr>
                     <td colspan='3' class='text-right'>
@@ -77,7 +76,7 @@ function konyvReszletek($konyv_id, $conn) {
                 </tr>";
         }
 
-        $vegosszeg = $_SESSION["torzsvasarlo"] ? "Végösszeg: <s><em>" . $osszeg . " Ft</em></s> <strong>" . $osszeg * $kedvezmeny_multiplier . " Ft</strong>" : "Végösszeg: <strong>" . $osszeg . " Ft</strong>";
+        $vegosszeg = $torzsvasarlo ? "Végösszeg: <s><em>" . $osszeg . " Ft</em></s> <strong>" . $osszeg * $kedvezmeny_multiplier . " Ft</strong>" : "Végösszeg: <strong>" . $osszeg . " Ft</strong>";
 
         echo $kedvezmeny_sor . "
                 <tr>
