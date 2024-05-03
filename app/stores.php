@@ -52,7 +52,7 @@ $admin = isset($_SESSION['user_id']) && $_SESSION['admin'];
                     '</tr>';
                 }
                 ?>
-    </table>;
+    </table>
 </div>
 <?php endif; ?>
 

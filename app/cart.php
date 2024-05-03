@@ -57,6 +57,16 @@ function konyvReszletek($konyv_id, $conn) {
                     <td style='width: 30%;'>
                         <p><strong>Ár:</strong> " . $mennyiseg . " db * " . $konyv["AR"] . " Ft</p>
                     </td>
+                    <td>
+                        <form action='scripts/deleteFromCart.php' method='post'>
+                            <input type='hidden' name='id' value=" . $konyv_id . ">
+                            <button type='submit' class='btn btn-danger mr-3' style='width: 35px; height: 35px; padding: 0;'>
+                                <svg width='20' height='32' xmlns='http://www.w3.org/2000/svg' style='padding-top: 2px;'>
+                                    <image id='cart-delete' href='assets/icons/trash-solid.svg' height='30' width='20' />
+                                </svg>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             ";
         }
@@ -65,12 +75,12 @@ function konyvReszletek($konyv_id, $conn) {
         if($torzsvasarlo){
             $kedvezmeny_sor .= "
                 <tr>
-                    <td colspan='3' class='text-right'>
+                    <td colspan='4' class='text-right'>
                         Törzsvásárlói kedvezmény: <strong>-10%</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan='3' class='text-right'>
+                    <td colspan='4' class='text-right'>
                         Kedvezmény értéke: <strong> -" . ($osszeg - $osszeg * $kedvezmeny_multiplier) . " Ft</strong>
                     </td>
                 </tr>";
@@ -80,7 +90,7 @@ function konyvReszletek($konyv_id, $conn) {
 
         echo $kedvezmeny_sor . "
                 <tr>
-                    <td colspan='3' class='text-right'>
+                    <td colspan='4' class='text-right'>
                         " . $vegosszeg . "
                     </td>
                 </tr>
