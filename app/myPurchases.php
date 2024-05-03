@@ -33,31 +33,21 @@ include_once "scripts/getAllPurchases.php";
                 echo "<td></td>";
                 echo "<td>" . $row['KONYV_CIM'] . "</td>";
                 echo "<td>" . $row['MENNYISEG'] . "</td>";
-                // Törlési gomb beszúrása
-                echo "<td><button class='btn btn-danger' onclick='deletePurchase(\"" . $row['KONYV_ID'] . "\")'>Törlés</button></td>";
+                echo "
+                    <td>
+                        <form action='scripts/deletePurchase.php' method='post'>
+                            <input type='hidden' name='id' value=" . $row["ID"] . ">
+                            <button type='submit' class='btn btn-danger mr-3' style='width: 30px; height: 30px; padding: 0;'>
+                                <svg width='30' height='30' xmlns='http://www.w3.org/2000/svg' style='padding-left: 5px;'>
+                                    <image id='cart-delete' href='assets/icons/trash-solid.svg' height='30' width='20' />
+                                </svg>
+                            </button>
+                        </form>
+                    </td>
+                ";
                 echo "</tr>";
             }
             ?>
         </tbody>
     </table>
 </div>
-
-<script>
-        function deletePurchase(bookId) {
-            if (confirm('Biztosan törölni szeretné ezt a könyvet?')) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "deletePurchase.php?id=" + bookId, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        // Sikeres válasz esetén frissítheted az oldalt vagy végezhetsz más műveletet
-                        // Pl. frissítés:
-                        location.reload();
-                    } else {
-                        // Hiba esetén kezeld a hibát
-                        console.log('Hiba történt a törlés során.');
-                    }
-                };
-                xhr.send();
-            }
-        }
-</script>
