@@ -35,7 +35,7 @@ include_once "scripts/getAllPurchases.php";
                 echo "<td>" . $row['MENNYISEG'] . "</td>";
                 echo "
                     <td>
-                        <form action='scripts/deletePurchase.php' method='post'>
+                        <form action='deletePurchase.php' method='post'>
                             <input type='hidden' name='id' value=" . $row["ID"] . ">
                             <button type='submit' class='btn btn-danger mr-3' style='width: 30px; height: 30px; padding: 0;'>
                                 <svg width='30' height='30' xmlns='http://www.w3.org/2000/svg' style='padding-left: 5px;'>
