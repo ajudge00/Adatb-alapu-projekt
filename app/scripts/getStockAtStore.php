@@ -4,12 +4,13 @@ $aruhaz_id = $_GET['id'];
 
 $sql = '
     SELECT
-        a.cim AS aruhaz_cim,
+        a.aruhaz_cim,
         konyv.id AS konyv_id,
         konyv.cim AS konyv_cim,
         k.mennyiseg
     FROM keszlet k
-    LEFT JOIN aruhaz a ON a.id = k.aruhaz_id
+    LEFT JOIN (SELECT id, cim AS aruhaz_cim FROM aruhaz
+    ) a ON a.id = k.aruhaz_id
     LEFT JOIN konyv ON konyv.id = k.konyv_id
     WHERE aruhaz_id = :aruhaz_id
 ';

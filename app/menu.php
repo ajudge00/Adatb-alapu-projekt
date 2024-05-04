@@ -79,7 +79,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- Logó -->
     <a class="navbar-brand" href="index.php">
-        <img src="pics/logo1.png" height="50" alt="logo">
+        <img id="logo" src="assets/icons/logo.png" height="50" width="50" alt="logo">
     </a>
 
     <!-- Toggle gomb kicsi kepernyoknek mert bootstrap is power -->

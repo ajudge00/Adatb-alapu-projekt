@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Könyvek</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-
 <div class="container mt-5">
     <h1 class="mb-4">Könyvek</h1>
     <!-- Kereső mező -->
@@ -112,19 +101,16 @@
         const tbody = document.getElementById(tableId).querySelector('tbody');
         const rows = Array.from(tbody.querySelectorAll('tr'));
 
-        // Sort the rows
         rows.sort((a, b) => {
             const cellTextA = a.children[column].innerText.trim();
             const cellTextB = b.children[column].innerText.trim();
             return asc ? cellTextA.localeCompare(cellTextB, 'hu', {numeric: true}) : cellTextB.localeCompare(cellTextA, 'hu', {numeric: true});
         });
 
-        // Clear the table body
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
 
-        // Append the sorted rows to the table body
         rows.forEach(row => {
             tbody.appendChild(row);
         });

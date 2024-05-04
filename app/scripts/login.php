@@ -3,7 +3,6 @@ session_start();
 
 include "connectDB.php";
 
-// User input extraction
 $email_in = $_POST['login-email'];
 $password_in = $_POST['login-password'];
 
@@ -30,9 +29,8 @@ $sql = '
 
 $stmt = oci_parse($conn, $sql);
 
-// Input parameter
 oci_bind_by_name($stmt, ':email_in', $email_in);
-// Output parameterek
+
 oci_bind_by_name($stmt, ':user_id', $user_id, 5);
 oci_bind_by_name($stmt, ':nev', $nev, 40);
 oci_bind_by_name($stmt, ':email', $email_in_db, 40);

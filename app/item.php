@@ -13,6 +13,8 @@ if (count($aruhaz_arr) > 0){ $konyv_elerheto = true; }
 
 $kosarban = isset($_SESSION["cart_added"]) && $_SESSION["cart_added"];
 unset($_SESSION["cart_added"]);
+
+$admin = isset($_SESSION["user_id"]) && $_SESSION["admin"];
 ?>
 
 <div class="container mt-5">
@@ -91,7 +93,7 @@ unset($_SESSION["cart_added"]);
                             echo '<p>A termék elérhető következő partnereinknél: </p>';
                             foreach ($aruhaz_arr as $aruhaz) {
                                 echo "<li class='ml-5'>";
-                                if (isset($_SESSION["user_id"]) && $_SESSION["admin"] == true){
+                                if ($admin){
                                     echo "(" . $aruhaz['MENNYISEG'] . " példány) ";
                                 }
 

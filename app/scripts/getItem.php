@@ -28,15 +28,15 @@ $sql = '
             oldalszam,
             leiras,
             nyelv,
-            m.mufaj_nev,
-            m.almufaj_nev,
+            m.kategoria,
+            m.mufaj,
             k.ar,
             k.kifuto
             INTO v_konyv
         FROM konyv k
         LEFT JOIN szerzo sz ON sz.id = k.szerzo_id
         LEFT JOIN kiado ki ON ki.id = k.kiado_id
-        LEFT JOIN mufaj m ON m.id = k.mufaj_id
+        LEFT JOIN (SELECT id, mufaj_nev AS kategoria, almufaj_nev as mufaj from mufaj) m ON m.id = k.mufaj_id
         WHERE k.id = :item_id;
 
         :cim := v_konyv.CIM;

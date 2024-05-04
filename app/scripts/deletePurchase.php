@@ -3,7 +3,7 @@ session_start(); // Munkamenet folytatása
 
 // Ellenőrizzük, hogy az 'id' és a 'user_id' mezők megérkeztek-e a POST kérésből
 if (isset($_POST['id'], $_SESSION['user_id'])) {
-    include_once "scripts/connectDB.php"; // Adatbázis kapcsolódás
+    include_once "connectDB.php"; // Adatbázis kapcsolódás
 
     // Vásárlás törlése az adatbázisból
     $purchase_id = $_POST['id'];
@@ -19,7 +19,7 @@ if (isset($_POST['id'], $_SESSION['user_id'])) {
     $success = oci_execute($stmt);
 
     if ($success) {
-        header("Location: ./?page=myPurchase.php");
+        header("Location: ../?page=myPurchases");
         exit();
     } else {
         echo "Hiba történt a törlés közben";
@@ -28,7 +28,7 @@ if (isset($_POST['id'], $_SESSION['user_id'])) {
     oci_free_statement($stmt);
     oci_close($conn);
 } else {
-    header("Location: ./?page=myPurchase.php");
+    header("Location: ../?page=myPurchases");
     exit();
 }
 ?>
