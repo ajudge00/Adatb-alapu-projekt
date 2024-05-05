@@ -4,6 +4,14 @@ include "scripts/topProducts.php";
 ?>
 
 <div class="container mt-5">
+    <?php
+        if(isset($_GET["filter"])){
+            $filter = $_GET["filter"];
+            $filteredby = explode("_", $filter)[0] == "genre" ? "műfaj" : "alműfaj";
+            $value = explode("_", $filter)[1];
+            echo "<p class='mb-4' >Szűrve: " . $value . " " . $filteredby . " alapján</p>";
+        }
+    ?>
     <h1 class="mb-4">Legnépszerűbb könyveink</h1>
     <div class="row">
 
