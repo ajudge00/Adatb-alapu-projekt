@@ -502,3 +502,104 @@ INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, D
 INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (10,5, 38, 'Lajosmizse, Szabadság tér 13.', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
 
 commit;
+
+
+
+create or replace TRIGGER KIFUTO_TRIGGER
+FOR INSERT OR UPDATE OF MENNYISEG ON "KESZLET"
+COMPOUND TRIGGER
+
+    TYPE t_stock IS TABLE OF KONYV.ID%TYPE INDEX BY PLS_INTEGER;
+    v_books t_stock;
+    v_book_id KONYV.ID%TYPE;
+
+    AFTER EACH ROW IS
+    BEGIN
+        v_books(v_books.COUNT + 1) := :NEW.KONYV_ID;
+    END AFTER EACH ROW;
+
+    AFTER STATEMENT IS
+        v_total_amount NUMBER;
+    BEGIN
+        FOR i IN 1 .. v_books.COUNT LOOP
+            SELECT SUM(MENNYISEG) INTO v_total_amount
+            FROM KESZLET
+            WHERE KONYV_ID = v_books(i)
+            GROUP BY KONYV_ID;
+
+            IF v_total_amount <= 10 THEN
+                UPDATE KONYV
+                SET KIFUTO = 1
+                WHERE ID = v_books(i);
+            ELSE
+                UPDATE KONYV
+                SET KIFUTO = 0
+                WHERE ID = v_books(i);
+            END IF;
+        END LOOP;
+    END AFTER STATEMENT;
+
+END KIFUTO_TRIGGER;
+
+
+
+
+commit;
+
+
+
+create or replace TRIGGER update_torzsvasarlo
+AFTER INSERT ON "VASARLAS"
+DECLARE
+    CURSOR c_vasarlasok IS
+        SELECT FELHASZNALO_ID, SUM(MENNYISEG) AS VASAROLT_DARAB
+        FROM VASARLAS
+        GROUP BY FELHASZNALO_ID;
+BEGIN
+    FOR vasarlas_rec IN c_vasarlasok
+    LOOP
+        IF vasarlas_rec.VASAROLT_DARAB >= 5 THEN
+            UPDATE FELHASZNALO
+            SET TORZSVASARLO = 1
+            WHERE ID = vasarlas_rec.FELHASZNALO_ID;
+        END IF;
+    END LOOP;
+END;
+
+
+
+commit;
+
+
+create or replace FUNCTION get_item_stock(p_item_id NUMBER, p_cursor OUT SYS_REFCURSOR)
+    RETURN SYS_REFCURSOR IS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT aruhaz_id, a.cim AS aruhaz_cim, konyv_id, mennyiseg
+        FROM keszlet k
+        LEFT JOIN aruhaz a ON k.aruhaz_id = a.id
+        WHERE konyv_id = p_item_id;
+
+    RETURN p_cursor;
+END get_item_stock;
+
+
+commit;
+
+
+
+create or replace FUNCTION update_keszlet(p_konyv_id NUMBER, p_mennyiseg NUMBER)
+    RETURN BOOLEAN IS ret BOOLEAN;
+BEGIN
+    UPDATE KESZLET SET MENNYISEG = MENNYISEG - p_mennyiseg WHERE KONYV_ID = p_konyv_id and ROWNUM = 1;
+
+    ret := TRUE;
+    RETURN ret;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        ret := FALSE;
+        RETURN ret;
+END update_keszlet;
+
+
+commit;
